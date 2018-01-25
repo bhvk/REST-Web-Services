@@ -33,6 +33,15 @@ public class MessageResource
 		return	messageService.addMessage(message);
 	}
 	
+	@PUT
+	@Path("/{messageId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Message updateMessage(@PathParam("messageId") long id, Message msg) 
+	{
+		msg.setId(id);
+		return messageService.updateMessage(msg);
+	}
 	
 	@GET
 	@Path("/{messageId}")
