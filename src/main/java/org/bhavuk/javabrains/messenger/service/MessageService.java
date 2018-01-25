@@ -39,6 +39,7 @@ public class MessageService
 		if(message.getId() <= 0) {
 			return null;
 		}
+		message.setCreated(new Date()); //added date automatically when updated, so no need to specify in JSON
 		messages.put(message.getId(), message);
 		return message;
 	}

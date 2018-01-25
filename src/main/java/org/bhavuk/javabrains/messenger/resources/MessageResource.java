@@ -3,6 +3,7 @@ package org.bhavuk.javabrains.messenger.resources;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -27,21 +28,28 @@ public class MessageResource
 	}
 	
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Message addMessage(Message message) {
 		return	messageService.addMessage(message);
 	}
 	
 	@PUT
 	@Path("/{messageId}")
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Message updateMessage(@PathParam("messageId") long id, Message msg) 
-	{
-		msg.setId(id);
-		return messageService.updateMessage(msg);
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message updateMessage(@PathParam("messageId") long id, Message message){
+		message.setId(id);
+		return messageService.updateMessage(message);
 	}
+	
+	@DELETE
+	@Path("/{messageId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteMessage(@PathParam("messageId") long id) {
+		messageService.removeMessage(id);
+	}
+	
 	
 	@GET
 	@Path("/{messageId}")
