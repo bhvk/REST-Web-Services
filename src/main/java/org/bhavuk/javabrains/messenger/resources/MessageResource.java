@@ -2,6 +2,7 @@ package org.bhavuk.javabrains.messenger.resources;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.bhavuk.javabrains.messenger.model.Message;
+import org.bhavuk.javabrains.messenger.resources.beans.MessageFilterBean;
 import org.bhavuk.javabrains.messenger.service.MessageService;
 
 
@@ -26,12 +28,12 @@ public class MessageResource
 	MessageService messageService = new MessageService();
 	
 	@GET
-	public List<Message> getMessages(@QueryParam("year") int year, @QueryParam("start") int start, @QueryParam("size") int size) 
+	public List<Message> getMessages(@BeanParam MessageFilterBean filterBean) 
 	{
-		if(year > 0)
-			return messageService.getAllMessagesForYear(year);
-		if(start >= 0 && size>0 )
-			return messageService.getAllMessagesPaginated(start, size);
+		if(filterBean.getYear() > 0)
+			return messageService.getAllMessagesForYear(filterBean.getYear());
+		if(filterBean.getStart() >= 0 && filterBean.getSize()>0 )
+			return messageService.getAllMessagesPaginated(filterBean.getStart(), filterBean.getSize());
 		return messageService.getAllMessages();
 	}
 	
